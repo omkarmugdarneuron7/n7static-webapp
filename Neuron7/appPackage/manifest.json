@@ -1,0 +1,59 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.19",
+    "version": "1.0.0",
+    "id": "${{TEAMS_APP_ID}}",
+    "developer": {
+        "name": "Teams App, Inc.",
+        "websiteUrl": "${{TAB_ENDPOINT}}",
+        "privacyUrl": "${{TAB_ENDPOINT}}/index.html#/privacy",
+        "termsOfUseUrl": "${{TAB_ENDPOINT}}/index.html#/termsofuse"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "Neuron 7",
+        "full": "Full name for Neuron 7"
+    },
+    "description": {
+        "short": "Short description of Neuron 7",
+        "full": "Full description of Neuron 7"
+    },
+    "accentColor": "#FFFFFF",
+    "bots": [],
+    "composeExtensions": [],
+    "configurableTabs": [],
+    "staticTabs": [
+        {
+            "entityId": "intelligentSearch",
+            "name": "Intelligent Search",
+            "contentUrl": "${{TAB_ENDPOINT}}/index.html#/intelligent-search",
+            "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/intelligent-search",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "serviceRequest",
+            "name": "Service Request",
+            "contentUrl": "${{TAB_ENDPOINT}}/index.html#/service-request",
+            "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/service-request",
+            "scopes": [
+                "personal"
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "${{TAB_HOSTNAME}}"
+    ],
+    "webApplicationInfo": {
+        "id": "${{AAD_APP_CLIENT_ID}}",
+        "resource": "api://${{TAB_DOMAIN}}/${{AAD_APP_CLIENT_ID}}"
+    }
+}
