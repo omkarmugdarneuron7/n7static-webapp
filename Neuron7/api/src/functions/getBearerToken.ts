@@ -7,9 +7,30 @@ export async function getBearerToken(
   context: InvocationContext
 ): Promise<HttpResponseInit> {
   context.log("Processing getBearerToken request...");
- 
-  // Fetch environment variables (set via Azure Function App Configuration)
- 
+
+  // Tenant validation logic
+  const user = req.headers["x-ms-client-principal"];
+  if (!user) {
+    return {
+      status: 401,
+      body: "Unauthorized: Missing client principal header",
+    };
+  }
+
+  const decoded = Buffer.from(user, "base64").toString("ascii");
+  const userInfo = JSON.parse(decoded);
+
+  const tenantId = userInfo.identityProvider.split("/")[3];
+  const allowedTenants = ["1cbde2c8-de37-43ad-ae97-b30d954200ac"];
+
+  if (!allowedTenants.includes(tenantId)) {
+    context.log("Forbidden: Tenant not allowed");
+    return {
+      status: 403,
+      body: "Forbidden: Tenant not allowed",
+    };
+  }
+
   // Authentication URL
   const authUrl = `${config.N7BaseUrl}/security/user/authenticate`;
   try {
